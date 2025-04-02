@@ -1,4 +1,4 @@
-import type { Photo, PhotosResponse } from "../models/rovers.service";
+import type { Photo, PhotosResponse } from "../models/rovers.model";
 import { BaseService } from "./base.service";
 
 type PhotosListener = (photos: Photo[]) => void;
@@ -22,7 +22,7 @@ export class RoversService extends BaseService {
 
     private async init() {
         const response = await this.fetchApi<PhotosResponse>(
-            `/mars-photos/api/v1/rovers/curiosity/photos?sol=100&api_key=${import.meta.env.VITE_API_KEY}`
+            `/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=${import.meta.env.VITE_API_KEY}`
         );
         this.photos = response.photos;
         this.notifyListeners();

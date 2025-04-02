@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { RoversService } from "../services/rovers.service";
-import type { Photo } from "../models/rovers.service";
+import type { Photo } from "../models/rovers.model";
 
 export function useRovers() {
   const [photos, setPhotos] = useState<Photo[]>([]);

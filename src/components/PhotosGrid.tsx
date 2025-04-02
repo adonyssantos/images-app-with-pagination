@@ -1,4 +1,4 @@
-import { Photo } from "../models/rovers.service";
+import { Photo } from "../models/rovers.model";
 import { Grid } from "@mui/material";
 import { PhotoCard } from "./PhotoCard";
 

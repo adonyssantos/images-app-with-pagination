@@ -11,7 +11,7 @@ import {
   DialogActions,
   DialogContent,
 } from "@mui/material";
-import type { Photo } from "../models/rovers.service";
+import type { Photo } from "../models/rovers.model";
 import { useState } from "react";
 
 type PhotoCardProps = {
