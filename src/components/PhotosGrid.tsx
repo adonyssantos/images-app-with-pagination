@@ -7,9 +7,9 @@ type PhotosGridProps = {
 }
 
 export function PhotosGrid({ photos, handleDelete }: PhotosGridProps) {
-    return <Grid container spacing={3}>
+    return <Grid container spacing={3} justifyContent="center">
     {photos.map((photo) => (
-      <Grid item key={photo.id} xs={12} sm={6} md={4}>
+      <Grid key={photo.id}>
         <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
           <CardMedia
             component="img"

@@ -7,7 +7,7 @@ type ErrorMessageProps = {
 
 export function ErrorMessage({ children }: ErrorMessageProps) {
   return (
-    <Container sx={{ py: 4, textAlign: "center" }}>
+    <Container sx={{ width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
       <Typography color="error" variant="h6">
         {children}
       </Typography>

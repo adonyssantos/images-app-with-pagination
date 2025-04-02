@@ -21,7 +21,7 @@ function App() {
   // Render photos, if successful
   return (
     <Container sx={{ py: 4 }}>
-      <Title>Mars Rover Photos</Title>
+      <Title textAlign='center'>Mars Rover Photos</Title>
 
       <PhotosGrid photos={photos} handleDelete={handleDelete} />
 

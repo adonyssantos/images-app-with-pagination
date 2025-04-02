@@ -2,7 +2,7 @@ import { Container, CircularProgress } from "@mui/material";
 
 export function Loading() {
   return (
-    <Container sx={{ py: 4, textAlign: "center" }}>
+    <Container sx={{ width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
       <CircularProgress />
     </Container>
   );
