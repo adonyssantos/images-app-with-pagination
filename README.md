@@ -32,8 +32,12 @@ To execute the project, you must have the following programs:
 Create a `.env` file in the root of the project with the following content:
 
 ```
-VITE_API_URL=https://api.nasa.gov
-VITE_API_KEY=YOUR_API_KEY
+# Nasa API URL
+VITE_API_URL='https://api.nasa.gov'
+
+# Nasa API KEY
+VITE_API_KEY='DEMO_KEY'
+
 ```
 
 You can use the `cp .env.example .env` command to copy the example file or you can copy it manually.
