@@ -1,3 +1,9 @@
+/**
+ * @abstract
+ * @class BaseService
+ * @description
+ * BaseService is an abstract class providing foundational functionality for making API requests and handling global loading and error states.
+ */
 export abstract class BaseService {
   protected readonly baseUrl: string;
   private errorListeners: Set<(error: Error) => void> = new Set();
@@ -7,6 +13,17 @@ export abstract class BaseService {
     this.baseUrl = import.meta.env.VITE_API_URL;
   }
 
+  /**
+   * Makes an API request to the specified endpoint and returns the parsed response as a generic type.
+   * Handles loading state notification and error handling.
+   * 
+   * @template T - The expected response type.
+   * @param {string} endpoint - The API endpoint to call (relative to the base URL).
+   * @param {RequestInit} [options] - Optional fetch configuration options.
+   * @returns {Promise<T>} - The parsed response data.
+   * @throws {Error} - Throws an error if the request fails.
+   * @protected
+   */
   protected async fetchApi<T>(endpoint: string, options?: RequestInit): Promise<T> {
     try {
       this.notifyLoadingListeners(true);
@@ -40,6 +57,12 @@ export abstract class BaseService {
     throw error;
   }
 
+  /**
+   * Adds an error listener to the service.
+   * 
+   * @param {Function} listener - The listener function to be called when an error occurs.
+   * @returns {Function} - A function to remove the listener.
+   */
   public onError(listener: (error: Error) => void) {
     this.errorListeners.add(listener);
     return () => {
@@ -47,6 +70,12 @@ export abstract class BaseService {
     };
   }
 
+  /**
+   * Adds a loading listener to the service.
+   * 
+   * @param {Function} listener - The listener function to be called when the loading state changes.
+   * @returns {Function} - A function to remove the listener.
+   */
   public onLoading(listener: (isLoading: boolean) => void) {
     this.loadingListeners.add(listener);
     return () => {

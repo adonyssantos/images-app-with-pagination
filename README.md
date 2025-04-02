@@ -1,54 +1,71 @@
-# React + TypeScript + Vite
+## Mars Rover Photos
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Requirements
 
-Currently, two official plugins are available:
+To execute the project, you must have the following programs:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Git
+- Node.js (v22 recommended)
 
-## Expanding the ESLint configuration
+## Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1. Clone the repository:
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+ git clone https://github.com/adonyssantos/images-app-with-pagination.git
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Navigate to the project directory:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+ cd images-app-with-pagination
 ```
+
+3. Install the dependencies:
+
+```bash
+ npm install
+```
+
+## Environment variables configuration
+
+Create a `.env` file in the root of the project with the following content:
+
+```
+VITE_API_URL=https://api.nasa.gov
+VITE_API_KEY=YOUR_API_KEY
+```
+
+You can use the `cp .env.example .env` command to copy the example file or you can copy it manually.
+
+## Run the project under development
+
+```bash
+ npm run dev
+```
+
+The project will be available at: `http://localhost:5173`.
+
+## Compile the project for production
+
+```bash
+ npm run build
+```
+
+The production files will be generated in the ``dist`` folder.
+
+## Preview the build to production
+
+```bash
+ npm run preview
+```
+
+This will raise a server to preview the built application.
+
+## Project Structure
+- `src/services/` - Services to interact with APIs and manage application state.
+- `src/models/` - TypeScript types and interfaces used by services.
+- `src/components/` - Reusable application components.
+- `src/hooks/` - Includes a custom hook to handle application logic.
+- `src/App.tsx` - Main component of the application where the user interface is built.
+- `src/index.css` - Global styles of the application to reset the default styles of the browsers. Although MUI is being used for the UI.
