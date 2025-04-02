@@ -1,110 +1,29 @@
-import { Button, Grid, Container, Card, CardMedia, CardActions, Typography, CircularProgress } from "@mui/material";
-import { useEffect, useState } from "react";
-import { RoversService } from "./services/rovers.service";
-import type { Photo } from "./models/rovers.service";
+import { Button, Container, CircularProgress } from "@mui/material";
+import { useRovers } from "./hooks/useRovers";
+import { Loading } from "./components/Loading";
+import { ErrorMessage } from "./components/ErrorMessage";
+import { InfoMessage } from "./components/InfoMessage";
+import { Title } from "./components/Title";
+import { PhotosGrid } from "./components/PhotosGrid";
 
 function App() {
-  const [photos, setPhotos] = useState<Photo[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [roversService] = useState(() => new RoversService());
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<Error | null>();
+  const { photos, isLoading, error, handleLoadMore, handleDelete, hasMorePhotos } = useRovers();
+  
+  // Render loading state
+  if (isLoading && photos.length === 0) return <Loading />;
 
-  useEffect(() => {
-    const unsubscribe = roversService.subscribe(() => {
-      const currentPhotos = [];
-      for (let i = 1; i <= currentPage; i++) {
-        const pagePhotos = roversService.getPhotos(i) || [];
-        currentPhotos.push(...pagePhotos);
-      }
-      setPhotos(currentPhotos);
-    });
-    roversService.onError((requestError) => {
-      setError(requestError);
-    });
-    roversService.onLoading((requestLoading) => {
-      setIsLoading(requestLoading);
-    });
-    return () => {
-      unsubscribe();
-    };
-  }, [roversService, currentPage]);
+  // Render error state
+  if (error) return <ErrorMessage>Error: {error.message}</ErrorMessage>;
 
-  const handleLoadMore = () => {
-    const nextPage = currentPage + 1;
-    setCurrentPage(nextPage);
-  };
+  // Render empty state
+  if (!photos.length) return <InfoMessage>No photos available</InfoMessage>;
 
-  const handleDelete = (id: number) => {
-    roversService.removePhoto(id);
-  };
-
-  const hasMorePhotos = currentPage < roversService.getTotalPages();
-
-  if (isLoading && photos.length === 0) {
-    return (
-      <Container sx={{ py: 4, textAlign: "center" }}>
-        <CircularProgress />
-      </Container>
-    );
-  }
-
-  if (error) {
-    return (
-      <Container sx={{ py: 4, textAlign: "center" }}>
-        <Typography color="error" variant="h6">
-          Error: {error.message}
-        </Typography>
-      </Container>
-    );
-  }
-
-  if (!photos.length) {
-    return (
-      <Container sx={{ py: 4, textAlign: "center" }}>
-        <Typography variant="h6">No photos available</Typography>
-      </Container>
-    );
-  }
-
+  // Render photos, if successful
   return (
     <Container sx={{ py: 4 }}>
-      <Typography variant="h4" sx={{ mb: 4 }}>
-        Mars Rover Photos
-      </Typography>
+      <Title>Mars Rover Photos</Title>
 
-      <Grid container spacing={3}>
-        {photos.map((photo) => (
-          <Grid item key={photo.id} xs={12} sm={6} md={4}>
-            <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
-              <CardMedia
-                component="img"
-                sx={{
-                  height: 300,
-                  width: 300,
-                  objectFit: "cover",
-                }}
-                image={photo.img_src}
-                alt={`Mars Rover Photo ${photo.id}`}
-              />
-              <CardActions sx={{ mt: "auto" }}>
-                <Typography variant="caption" sx={{ flexGrow: 1 }}>
-                  ID: {photo.id}
-                  <br />
-                  Camera: {photo.camera.name}
-                  <br />
-                  Earth Date: {photo.earth_date}
-                  <br />
-                  Rover: {photo.rover.name}
-                </Typography>
-                <Button size="small" color="error" onClick={() => handleDelete(photo.id)}>
-                  Delete
-                </Button>
-              </CardActions>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
+      <PhotosGrid photos={photos} handleDelete={handleDelete} />
 
       {hasMorePhotos && (
         <Button
