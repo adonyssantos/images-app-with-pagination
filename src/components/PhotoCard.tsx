@@ -58,7 +58,7 @@ export function PhotoCard({ photo, handleDelete }: PhotoCardProps) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={() => handleDelete(photo.id)}>Delete</Button>
+          <Button color="error" onClick={() => handleDelete(photo.id)}>Delete</Button>
         </DialogActions>
       </Dialog>
     </Grid>
